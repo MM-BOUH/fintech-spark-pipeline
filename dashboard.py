@@ -41,15 +41,19 @@ if DATA.name == "sample_data":
     )
 
 # ---------- Data loading ----------
+def _mtime(p: Path) -> float:
+    f = p if p.is_dir() else p.with_suffix(".parquet")
+    return f.stat().st_mtime
+
 @st.cache_data
-def load_transactions():
+def load_transactions(_mtime: float):
     p = DATA / "transactions"
     if p.is_dir():
         return pd.read_parquet(p)
     return pd.read_parquet(p.with_suffix(".parquet"))
 
 @st.cache_data
-def load_predictions():
+def load_predictions(_mtime: float):
     p = DATA / "predictions"
     if p.is_dir():
         return pd.read_parquet(p)
@@ -57,8 +61,8 @@ def load_predictions():
 
 
 with st.spinner("Loading transactions..."):
-    tx = load_transactions()
-    preds = load_predictions()
+    tx = load_transactions(_mtime(DATA / "transactions"))
+    preds = load_predictions(_mtime(DATA / "predictions"))
 
 # ---------- Sidebar ----------
 st.sidebar.header("Filters")
@@ -181,7 +185,7 @@ col1, col2 = st.columns(2)
 
 with col1:
     st.subheader("Volume by type")
-    vol = tx_view.groupby("type").agg(
+    vol = tx_view.groupby("type", observed=True).agg(
         tx_count=("amount", "count"),
         total_amount=("amount", "sum"),
         avg_amount=("amount", "mean"),
@@ -195,7 +199,7 @@ with col1:
 
 with col2:
     st.subheader("Fraud rate by type")
-    fraud_rate = tx_view.groupby("type").agg(
+    fraud_rate = tx_view.groupby("type", observed=True).agg(
         total=("isFraud", "count"),
         fraud_count=("isFraud", "sum"),
     ).reset_index()
