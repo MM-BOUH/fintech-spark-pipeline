@@ -65,4 +65,4 @@ streamlit run dashboard.py
 
 ## Author
 
-Mohamed Mehfoud Bouh — PhD, Information Science, Kyushu University. Portfolio at [mmbouh.netlify.app](https://mmbouh.netlify.app).
+Mohamed Mehfoud Bouh
