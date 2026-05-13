@@ -22,8 +22,23 @@ st.set_page_config(
 st.title("Fintech Fraud Detection — Spark Pipeline")
 st.caption(
     "PySpark MLlib pipeline on 6.36M financial transactions. "
-    "Mohamed Mehfoud Bouh — [portfolio](https://mmbouh.netlify.app)"
+    "Mohamed Mehfoud Bouh — "
+    "[GitHub](https://github.com/MM-BOUH/fintech-spark-pipeline)"
 )
+
+# Sample-data notice (only shows in the hosted demo, not locally)
+if DATA.name == "sample_data":
+    st.info(
+        "**About this demo.** The hosted version runs on a stratified 500K-row sample "
+        "(all 8,213 fraud transactions plus 491K randomly-sampled legit transactions) "
+        "rather than the full 6.36M-row dataset. This is a Streamlit Community Cloud "
+        "memory constraint — the free tier provides ~1GB RAM, and loading the full "
+        "dataset into pandas uses ~3GB. The full pipeline runs locally against all "
+        "6.36M rows; the scripts, methodology, and model artifacts are in the "
+        "[GitHub repository](https://github.com/MM-BOUH/fintech-spark-pipeline). "
+        "All model evaluation numbers (sections 3 and 4) come from the full 6.36M-row "
+        "training run."
+    )
 
 # ---------- Data loading ----------
 @st.cache_data
