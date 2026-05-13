@@ -22,3 +22,7 @@ derby.log
 # IDE
 .vscode/
 .idea/
+
+# But DO include the sample for deployment
+!sample_data/
+

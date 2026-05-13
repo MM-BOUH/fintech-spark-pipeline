@@ -10,6 +10,8 @@ import plotly.graph_objects as go
 from pathlib import Path
 
 DATA = Path(__file__).parent / "data" / "processed"
+if not DATA.exists():
+    DATA = Path(__file__).parent / "sample_data"
 
 st.set_page_config(
     page_title="Fintech Fraud Detection — Spark Pipeline",
@@ -26,11 +28,18 @@ st.caption(
 # ---------- Data loading ----------
 @st.cache_data
 def load_transactions():
-    return pd.read_parquet(DATA / "transactions")
+    p = DATA / "transactions"
+    if p.is_dir():
+        return pd.read_parquet(p)
+    return pd.read_parquet(p.with_suffix(".parquet"))
 
 @st.cache_data
 def load_predictions():
-    return pd.read_parquet(DATA / "predictions")
+    p = DATA / "predictions"
+    if p.is_dir():
+        return pd.read_parquet(p)
+    return pd.read_parquet(p.with_suffix(".parquet"))
+
 
 with st.spinner("Loading transactions..."):
     tx = load_transactions()
