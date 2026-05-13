@@ -1,0 +1,24 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+venv/
+.env
+
+# macOS
+.DS_Store
+
+# Data — too large and/or not redistributable
+data/raw/
+data/processed/
+
+# Logs and Spark
+*.log
+spark-warehouse/
+metastore_db/
+derby.log
+
+# IDE
+.vscode/
+.idea/
