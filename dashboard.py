@@ -135,7 +135,7 @@ col1, col2 = st.columns(2)
 with col1:
     fig = px.line(ts, x="step", y="transactions",
                   labels={"step": "Step (hour)", "transactions": "Transactions"})
-    fig.update_layout(title=None)
+    fig.update_layout(title="")
     st.plotly_chart(fig, use_container_width=True)
     st.caption("Transactions per hour in the filtered range.")
 
@@ -143,7 +143,7 @@ with col2:
     fig = px.line(ts, x="step", y="fraud",
                   labels={"step": "Step (hour)", "fraud": "Fraud cases"},
                   color_discrete_sequence=["#E63946"])
-    fig.update_layout(title=None)
+    fig.update_layout(title="")
     st.plotly_chart(fig, use_container_width=True)
     st.caption("Fraud is sparse early in the simulation and ramps up later — about 0.24% "
                "of training-period transactions are fraud vs 3.67% in the test period.")
@@ -308,7 +308,7 @@ with col1:
         text=cm, texttemplate="%{text:,}",
         colorscale="Blues", showscale=False,
     ))
-    fig.update_layout(height=400, title=None)
+    fig.update_layout(height=400, title="")
     st.plotly_chart(fig, use_container_width=True)
     st.caption("Test set: steps 601–744. One missed fraud, one false alarm out of 43,550 transactions.")
 
